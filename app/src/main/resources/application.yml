@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: alm-workflow-platform
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9092}
+
+server:
+  port: 8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+almflow:
+  kafka:
+    events-topic: almflow.events.entity-changed
+  connector:
+    jira:
+      id: jira-default
+      base-url: ${JIRA_BASE_URL:}
+      email: ${JIRA_EMAIL:}
+      api-token: ${JIRA_API_TOKEN:}
+      poll-jql: "updated >= -5m ORDER BY updated DESC"
+      polling-enabled: true
+      webhooks-enabled: true
+      poll-interval-ms: 60000
