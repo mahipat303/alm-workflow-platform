@@ -25,6 +25,7 @@
     <modules>
         <module>core</module>
         <module>connector-jira</module>
+        <module>engine</module>
         <module>app</module>
     </modules>
 
@@ -38,6 +39,11 @@
             <dependency>
                 <groupId>com.almflow</groupId>
                 <artifactId>connector-jira</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.almflow</groupId>
+                <artifactId>engine</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

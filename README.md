@@ -39,8 +39,34 @@ docker compose up -d           # Kafka + Zookeeper
 cd app && mvn spring-boot:run
 ```
 
+## Workflow JSON
+
+A workflow ties a trigger (connector + entity type) to a condition tree and one or more actions. The example below — *"when priority transitions Low → High, assign the issue to a specific user"* — lives at [`workflows/auto-escalate.json`](workflows/auto-escalate.json):
+
+```json
+{
+  "id": "auto-escalate",
+  "name": "Auto-assign on priority escalation",
+  "enabled": true,
+  "trigger": { "connectorId": "jira-default", "entityType": "issue" },
+  "condition": {
+    "type": "all",
+    "of": [
+      { "type": "fieldTransition", "field": "priority", "from": "Low", "to": "High" }
+    ]
+  },
+  "actions": [
+    { "type": "assign", "target": "$entity", "parameters": { "accountId": "..." } }
+  ]
+}
+```
+
+The drag-and-drop UI and the AI workflow-generator (Phase 3) both produce this same JSON shape — there is exactly one workflow format.
+
+Drop additional `.json` files in `./workflows/` (or override `almflow.workflows.dir`) to register more.
+
 ## Roadmap
 
-- **Phase 1 (current)**: connector SDK + Jira connector (webhook + poller) publishing events to Kafka.
-- **Phase 2**: rule engine + workflow JSON schema + action dispatch.
+- **Phase 1 ✓**: connector SDK + Jira connector (webhook + poller) publishing events to Kafka.
+- **Phase 2 ✓**: rule engine + workflow JSON schema + action dispatch with idempotency.
 - **Phase 3**: React Flow drag-and-drop workflow builder UI + AI workflow generation.

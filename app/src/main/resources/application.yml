@@ -16,6 +16,9 @@ management:
 almflow:
   kafka:
     events-topic: almflow.events.entity-changed
+    consumer-group: almflow-engine
+  workflows:
+    dir: ./workflows
   connector:
     jira:
       id: jira-default

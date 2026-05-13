@@ -1,0 +1,29 @@
+{
+  "id": "auto-escalate",
+  "name": "Auto-assign on priority escalation",
+  "enabled": true,
+  "trigger": {
+    "connectorId": "jira-default",
+    "entityType": "issue"
+  },
+  "condition": {
+    "type": "all",
+    "of": [
+      {
+        "type": "fieldTransition",
+        "field": "priority",
+        "from": "Low",
+        "to": "High"
+      }
+    ]
+  },
+  "actions": [
+    {
+      "type": "assign",
+      "target": "$entity",
+      "parameters": {
+        "accountId": "REPLACE_WITH_JIRA_ACCOUNT_ID"
+      }
+    }
+  ]
+}
