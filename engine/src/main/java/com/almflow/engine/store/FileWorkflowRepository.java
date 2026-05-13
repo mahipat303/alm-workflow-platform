@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -47,6 +48,38 @@ public class FileWorkflowRepository implements WorkflowRepository {
             log.error("failed to list workflow dir {}", dir, e);
         }
         return out;
+    }
+
+    @Override
+    public Optional<Workflow> findById(String id) {
+        return all().stream().filter(w -> id.equals(w.id())).findFirst();
+    }
+
+    @Override
+    public void save(Workflow workflow) {
+        if (workflow.id() == null || workflow.id().isBlank()) {
+            throw new IllegalArgumentException("workflow id is required");
+        }
+        try {
+            Files.createDirectories(dir);
+            Path file = dir.resolve(sanitize(workflow.id()) + ".json");
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file.toFile(), workflow);
+        } catch (IOException e) {
+            throw new RuntimeException("failed to save workflow " + workflow.id(), e);
+        }
+    }
+
+    @Override
+    public void delete(String id) {
+        try {
+            Files.deleteIfExists(dir.resolve(sanitize(id) + ".json"));
+        } catch (IOException e) {
+            throw new RuntimeException("failed to delete workflow " + id, e);
+        }
+    }
+
+    private static String sanitize(String id) {
+        return id.replaceAll("[^a-zA-Z0-9_-]", "_");
     }
 
     @Override

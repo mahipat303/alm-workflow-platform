@@ -24,7 +24,9 @@ Triggers are **hybrid**: webhooks where the tool supports them, scheduled pollin
 
 - `core` — connector SPI, event schema, domain model (no Spring beans, pure Java).
 - `connector-jira` — Jira REST client, webhook controller, scheduled poller. Reference connector implementation.
-- `app` — Spring Boot runtime that wires connectors, Kafka, and (later) the rule engine.
+- `engine` — workflow model, condition evaluator, action dispatcher, idempotency store.
+- `app` — Spring Boot runtime that wires connectors, Kafka, the rule engine, and the workflow REST API.
+- `ui` — React + React Flow drag-and-drop workflow builder ([`ui/README.md`](ui/README.md)).
 
 ## Build
 
@@ -69,4 +71,5 @@ Drop additional `.json` files in `./workflows/` (or override `almflow.workflows.
 
 - **Phase 1 ✓**: connector SDK + Jira connector (webhook + poller) publishing events to Kafka.
 - **Phase 2 ✓**: rule engine + workflow JSON schema + action dispatch with idempotency.
-- **Phase 3**: React Flow drag-and-drop workflow builder UI + AI workflow generation.
+- **Phase 3 ✓ (builder)**: React Flow drag-and-drop workflow builder UI + REST API for workflows.
+- **Phase 3 (next)**: AI workflow generator — natural language → workflow JSON via Claude.

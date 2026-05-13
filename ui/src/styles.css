@@ -1,0 +1,34 @@
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+
+.app { display: grid; grid-template-columns: 220px 1fr 320px; height: 100vh; }
+.sidebar, .inspector { background: #f7f7f8; border-right: 1px solid #e5e5e7; padding: 12px; overflow: auto; }
+.inspector { border-right: none; border-left: 1px solid #e5e5e7; }
+.sidebar h3, .inspector h3 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: #666; margin: 16px 0 8px; }
+.sidebar button, .toolbar button {
+  display: block; width: 100%; text-align: left; padding: 8px 10px; margin-bottom: 6px;
+  background: white; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; font-size: 13px;
+}
+.sidebar button:hover, .toolbar button:hover { background: #fafafa; }
+.toolbar { display: flex; gap: 8px; padding: 8px 12px; border-bottom: 1px solid #e5e5e7; align-items: center; background: white; }
+.toolbar input { padding: 6px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; }
+.toolbar button { width: auto; margin: 0; padding: 6px 12px; }
+.toolbar .spacer { flex: 1; }
+.canvas-wrap { display: flex; flex-direction: column; }
+.canvas { flex: 1; }
+
+.node { padding: 10px 12px; border-radius: 8px; font-size: 12px; border: 1.5px solid; min-width: 160px; background: white; }
+.node-trigger { border-color: #6366f1; }
+.node-condition { border-color: #f59e0b; }
+.node-action { border-color: #10b981; }
+.node-title { font-weight: 600; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #666; }
+.node-body { font-size: 13px; color: #111; }
+
+.inspector label { display: block; font-size: 11px; color: #666; margin-top: 10px; margin-bottom: 4px; }
+.inspector input, .inspector select, .inspector textarea {
+  width: 100%; padding: 6px 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px; font-family: inherit;
+}
+.inspector textarea { font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+.workflow-list { margin-top: 12px; }
+.workflow-list button { font-size: 12px; }
+.banner { padding: 8px 12px; background: #fef3c7; color: #92400e; font-size: 13px; }
