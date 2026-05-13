@@ -1,0 +1,22 @@
+{
+  "id" : "test-priority-escalation",
+  "name" : "Test escalation",
+  "enabled" : true,
+  "trigger" : {
+    "connectorId" : "jira-default",
+    "entityType" : "issue"
+  },
+  "condition" : {
+    "type" : "fieldTransition",
+    "field" : "priority",
+    "from" : "Low",
+    "to" : "High"
+  },
+  "actions" : [ {
+    "type" : "assign",
+    "target" : "$entity",
+    "parameters" : {
+      "accountId" : "abc123"
+    }
+  } ]
+}

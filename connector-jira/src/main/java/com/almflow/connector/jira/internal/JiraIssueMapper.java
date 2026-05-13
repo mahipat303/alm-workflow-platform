@@ -36,8 +36,8 @@ public final class JiraIssueMapper {
                         || h.created().toInstant().isAfter(since))
                 .flatMap(h -> h.items().stream().map(item -> new FieldChange(
                         item.field(),
-                        item.fromString(),
-                        item.toString(),
+                        item.fromValue(),
+                        item.toValue(),
                         h.author() == null ? null : h.author().accountId(),
                         h.created() == null ? Instant.now() : h.created().toInstant())))
                 .filter(Objects::nonNull)

@@ -1,6 +1,7 @@
 package com.almflow.connector.jira.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -15,5 +16,9 @@ public record JiraChangelogDto(List<History> histories) {
     public record Author(String accountId, String displayName) {}
 
     @JsonIgnoreProperties(ignoreUnknown = true)
-    public record Item(String field, String fieldtype, String fromString, String toString) {}
+    public record Item(
+            String field,
+            String fieldtype,
+            @JsonProperty("fromString") String fromValue,
+            @JsonProperty("toString") String toValue) {}
 }
